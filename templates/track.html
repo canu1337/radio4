@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ track.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ track.name }}</h1>
+<h2>{{ track.artist.name }}</h2>
+<h2>{{ track.album.name }}</h2>
+<h2>{{ track.pub_year }}</h2>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    new jPlayerPlaylist({
+    jPlayer: "#jquery_jplayer_1",
+    cssSelectorAncestor: "#jp_container_1"
+    }, [
+    {
+    title:"{{ track.name }}",
+    artist:"{{ track.artist.name }}",
+    mp3:"{{ track.file_url }}",
+    poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
+    }
+    ], {
+    playlistOptions: {
+    enableRemoveControls: true
+    },
+    swfPath: "/static/jplayer",
+    supplied: "mp3",
+    smoothPlayBar: true,
+    keyEnabled: true,
+    audioFullScreen: false // Allows the audio poster to go full screen via keyboard
+    });
+});
+</script>
+
+{% endblock %}
