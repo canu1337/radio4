@@ -65,11 +65,11 @@ class LocalTrack (Track):
             self.genre = audio['genre'][0]
         except KeyError:
             pass
-        try:
-            with store_context(store):
-                self.cover.from_blob(image_binary)
-        except:
-            pass
+        # try:
+        #     with store_context(store):
+        #         self.cover.from_blob(image_binary)
+        # except:
+        #     pass
         self.duration = f.info.length
         self.file_url = url_for('static', filename=path[string.rindex(path, 'library/'):])
 

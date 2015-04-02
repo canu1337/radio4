@@ -14,7 +14,7 @@ class Track(db.Model):
     genre = db.Column(db.String(50))
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
     album_id = db.Column(db.Integer, db.ForeignKey('album.id'))
-    cover = image_attachment('Cover')
+    # cover = image_attachment('Cover')
 
     artist = db.relationship('Artist', backref=db.backref('tracks', lazy='dynamic'))
     album = db.relationship('Album', backref=db.backref('tracks', lazy='dynamic'))

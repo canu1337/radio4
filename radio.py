@@ -1,4 +1,5 @@
-from flask import Flask
+from functools import wraps
+from flask import Flask, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import uuid
@@ -43,7 +44,9 @@ def track(track_id):
     if track == None:
        abort(404)
     else:
-        return render_template('track.html', track=track)
+        response = make_response(render_template('track.html', track=track))
+        response.headers['X-PJAX-Title'] = 'La radio du local - ' + track.name
+        return response
 
 if __name__ == '__main__':
     app.debug = True

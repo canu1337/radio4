@@ -8,7 +8,10 @@
     <script type="text/javascript" src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='jplayer/jquery.jplayer.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='jplayer/jplayer.playlist.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='pjax/jquery.pjax.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='pjax/jquery.pjax.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='player.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='pjax.js')}}"></script>
     <title>La radio du local - {% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -18,14 +21,14 @@
           <a class="navbar-brand" href="/">La radio du local</a>
           <a class="navbar-brand" href="#">Ma collection</a>
           <a class="navbar-brand" href="#">Options</a>
-          <a class="navbar-brand" href="#">Dick</a>
         </div>
       </div>
     </nav>
 
     <div id="container">
-
+    <div id="pjax-container">
     {% block content %}{% endblock %}
+    </div>
 <div id="jquery_jplayer_1" class="jp-jplayer"></div>
 <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
 	<div class="jp-type-single">
