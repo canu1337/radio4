@@ -1,4 +1,3 @@
-from sqlalchemy_imageattach.context import store_context
 from Global import db
 from Track import Track
 import Tools
@@ -9,8 +8,6 @@ import string
 from flask import url_for
 from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3
-from mutagen import File
-from sqlalchemy_imageattach.entity import Store
 
 
 class LocalTrack (Track):
@@ -36,7 +33,6 @@ class LocalTrack (Track):
     def __init__(self, path):
         audio = EasyID3(path)
         f = MP3(path)
-        p = File(path)
         try:
             self.name = audio['title'][0]
         except KeyError:
@@ -59,6 +55,7 @@ class LocalTrack (Track):
             pass
         try:
             self.album = Tools.get_or_create(db.session, Album, name=audio['album'][0])
+            self.album.artist = self.artist
         except KeyError:
             pass
         try:
@@ -72,5 +69,4 @@ class LocalTrack (Track):
         #     pass
         self.duration = f.info.length
         self.file_url = url_for('static', filename=path[string.rindex(path, 'library/'):])
-
 

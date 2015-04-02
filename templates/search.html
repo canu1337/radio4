@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ "Search: query" }}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+{% for track in tracks %}
+<div class="row row-search-result" data-title="{{ track.name }}" data-artist="{{ track.artist.name }}" data-file-url="{{track.file_url}}">
+        <div class="col-md-1"><span class="play-button-track">&#9658;</span><span class="add-button-track">+</span></div>
+        <div class="col-md-4"><a href= {{ url_for('track', track_id=track.id)}}>{{ track.name }}</a></div>
+        <div class="col-md-3"><a href={{ url_for('artist', artist_id=track.artist.id) }}>{{ track.artist.name }}</a></div>
+        <div class="col-md-3"><a href={{ url_for('album', album_id=track.album.id) }}>{{ track.album.name }}</a></div>
+        <div class="col-md-1">{{ track.pub_year }}</div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

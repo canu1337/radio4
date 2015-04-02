@@ -1,14 +1,8 @@
-from functools import wraps
-from flask import Flask, make_response
-from flask.ext.sqlalchemy import SQLAlchemy
-import os
+from flask import make_response
 import uuid
 from flask import render_template, abort
-
-from Model.Artist import *
 from Model.LocalTrack import *
 from Model.Track import *
-from Model.Album import *
 from Global import db, app
 
 @app.route('/')
@@ -47,6 +41,35 @@ def track(track_id):
         response = make_response(render_template('track.html', track=track))
         response.headers['X-PJAX-Title'] = 'La radio du local - ' + track.name
         return response
+
+
+@app.route('/artist/<int:artist_id>')
+def artist(artist_id):
+    artist = Artist.query.filter(Artist.id== artist_id).first()
+    if artist == None:
+       abort(404)
+    else:
+        response = make_response(render_template('artist.html', artist=artist))
+        response.headers['X-PJAX-Title'] = 'La radio du local - ' + artist.name
+        return response
+
+@app.route('/album/<int:album_id>')
+def album(album_id):
+    album = Album.query.filter(Album.id==album_id).first()
+    if album == None:
+        abort(404)
+    else:
+        response = make_response(render_template('album.html', album=album))
+        response.headers['X-PJAX-Title'] = 'La radio du local - ' + album.name
+        return response
+
+
+@app.route('/fulllist')
+def list():
+    tracks = Track.query.filter()
+    response = make_response(render_template('search.html', tracks=tracks))
+    response.headers['X-PJAX-Title'] = 'La radio du local - ' + 'query'
+    return response
 
 if __name__ == '__main__':
     app.debug = True
